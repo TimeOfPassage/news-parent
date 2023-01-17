@@ -60,6 +60,7 @@ public class ArticleServiceImpl implements ArticleService {
         ArticleDetailEntity articleDetail = new ArticleDetailEntity();
         articleDetail.setArticleId(save.getId());
         articleDetail.setContent(documentVo.getContent());
+        articleDetail.setContentHtml(documentVo.getContentHtml());
         articleDetailRepository.save(articleDetail);
         return RespVo.ok(save);
     }
@@ -116,12 +117,14 @@ public class ArticleServiceImpl implements ArticleService {
         Optional<ArticleDetailEntity> detailOption = articleDetailRepository.findOne(Example.of(articleDetail));
         if (detailOption.isPresent()) {
             ArticleDetailEntity articleDetailFromDB = detailOption.get();
-            articleDetailFromDB.setContent(articleDetail.getContent());
+            articleDetailFromDB.setContent(documentVo.getContent());
+            articleDetailFromDB.setContentHtml(documentVo.getContentHtml());
             articleDetailRepository.save(articleDetailFromDB);
         } else {
             articleDetail = new ArticleDetailEntity();
             articleDetail.setArticleId(documentVo.getId());
-            articleDetail.setContent(articleDetail.getContent());
+            articleDetail.setContent(documentVo.getContent());
+            articleDetail.setContentHtml(documentVo.getContentHtml());
             articleDetailRepository.save(articleDetail);
         }
         return RespVo.ok(null);
@@ -141,7 +144,9 @@ public class ArticleServiceImpl implements ArticleService {
         articleDetail.setArticleId(article.getId());
         Optional<ArticleDetailEntity> detailOption = articleDetailRepository.findOne(Example.of(articleDetail));
         if (detailOption.isPresent()) {
-            vo.setContent(detailOption.get().getContent());
+            ArticleDetailEntity detail = detailOption.get();
+            vo.setContent(detail.getContent());
+            vo.setContentHtml(detail.getContentHtml());
         }
         return RespVo.ok(vo);
     }

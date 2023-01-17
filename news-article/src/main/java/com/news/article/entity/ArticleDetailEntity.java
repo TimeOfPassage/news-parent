@@ -15,4 +15,6 @@ public class ArticleDetailEntity {
     private Long articleId;
     @Column(columnDefinition = "text not null comment '文章内容'")
     private String content;
+    @Column(columnDefinition = "text not null comment '文章内容-html'")
+    private String contentHtml;
 }

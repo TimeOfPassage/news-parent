@@ -8,4 +8,5 @@ public class DocumentVo extends PageQueryVo {
     private Long id;
     private String title;
     private String content;
+    private String contentHtml;
 }
