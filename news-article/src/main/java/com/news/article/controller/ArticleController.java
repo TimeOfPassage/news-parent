@@ -39,7 +39,7 @@ public class ArticleController {
         return articleService.add(documentVo);
     }
 
-    @GetMapping("/modify")
+    @PutMapping("/modify")
     public RespVo modify(@RequestBody DocumentVo documentVo) {
         return articleService.modify(documentVo);
     }

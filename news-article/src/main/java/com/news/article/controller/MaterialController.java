@@ -1,5 +1,6 @@
 package com.news.article.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.news.common.vo.RespVo;
 import com.news.article.service.MaterialService;
 import com.news.article.vo.MaterialVo;
@@ -29,13 +30,13 @@ public class MaterialController {
 
     // 新增
     @PostMapping("/upload")
-    public RespVo uploadMaterials(@RequestParam MultipartFile file, Long categoryId) {
-        return materialService.upload(file, categoryId);
+    public RespVo uploadMaterials(@RequestParam MultipartFile file, String categoryId) {
+        return materialService.upload(file, StrUtil.isBlank(categoryId) ? -1 : Long.parseLong(categoryId));
     }
 
     @GetMapping("/download")
     public void download(Long id, HttpServletResponse response) throws IOException {
-         materialService.download(id, response);
+        materialService.download(id, response);
     }
 
     // 删除
